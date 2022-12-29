@@ -11,10 +11,10 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(MockitoExtension.class)
 class ComplianceServiceTest {
 
-    private static final String AT_LEAST_8_CHARACTERS_MESSAGE = "at least 8 characters\n";
-    private static final String AT_LEAST_ONE_DIGIT_MESSAGE = "at least one digit\n";
-    private static final String AT_LEAST_ONE_SPECIAL_CHARACTER_MESSAGE = "at least one special character (!,#,$,%,&,@)\n";
-    private static final String AT_LEAST_ONE_UPPERCASE_MESSAGE = "at least one uppercase\n";
+    private static final String AT_LEAST_8_CHARACTERS_MESSAGE = "at least 8 characters, ";
+    private static final String AT_LEAST_ONE_DIGIT_MESSAGE = "at least one digit, ";
+    private static final String AT_LEAST_ONE_SPECIAL_CHARACTER_MESSAGE = "at least one special character (!,#,$,%,&,@), ";
+    private static final String AT_LEAST_ONE_UPPERCASE_MESSAGE = "at least one uppercase";
 
     @InjectMocks
     ComplianceService complianceService;

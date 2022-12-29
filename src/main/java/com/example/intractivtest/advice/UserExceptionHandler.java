@@ -1,5 +1,6 @@
 package com.example.intractivtest.advice;
 
+import com.example.intractivtest.dto.ApiError;
 import com.example.intractivtest.execption.InvalidPasswordException;
 import com.example.intractivtest.execption.UserAlreadyExistsException;
 import com.example.intractivtest.execption.UserNotFoundException;
@@ -13,8 +14,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class UserExceptionHandler {
 
     @ExceptionHandler(value = UserNotFoundException.class)
-    public ResponseEntity<Object> handleUserNotFoundException(UserNotFoundException userNotFoundException) {
-        return ResponseEntity.notFound().build();
+    public ResponseEntity<ApiError> handleUserNotFoundException(UserNotFoundException userNotFoundException) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(ApiError.builder().statusCode(HttpStatus.NOT_FOUND.value()).message(userNotFoundException.getMessage()).build());
     }
 
     @ExceptionHandler(value = UserPasswordNotCompliantException.class)
@@ -23,13 +25,15 @@ public class UserExceptionHandler {
     }
 
     @ExceptionHandler(value = UserAlreadyExistsException.class)
-    public ResponseEntity<Object> handleUserAlreadyExistsException(UserAlreadyExistsException userAlreadyExistsException) {
-         return ResponseEntity.status(HttpStatus.CONFLICT).body(userAlreadyExistsException.getMessage());
+    public ResponseEntity<ApiError> handleUserAlreadyExistsException(UserAlreadyExistsException userAlreadyExistsException) {
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(ApiError.builder().statusCode(HttpStatus.CONFLICT.value()).message(userAlreadyExistsException.getMessage()).build());
     }
 
     @ExceptionHandler(value = InvalidPasswordException.class)
-    public ResponseEntity<Object> handleInvalidPasswordException(InvalidPasswordException invalidPasswordException) {
-        return ResponseEntity.badRequest().body(invalidPasswordException.getMessage());
+    public ResponseEntity<ApiError> handleInvalidPasswordException(InvalidPasswordException invalidPasswordException) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                .body(ApiError.builder().statusCode(HttpStatus.FORBIDDEN.value()).message(invalidPasswordException.getMessage()).build());
     }
 
 }
